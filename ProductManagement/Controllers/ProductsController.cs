@@ -1,12 +1,13 @@
-﻿using System;
-using ApplicationIdentity.Controllers;
+﻿using ApplicationIdentity.Controllers;
 using ApplicationIdentity.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Infrastructure.Queries;
-using System.Threading.Tasks;
 using ProductManagement.Infrastructure.Commands;
+using ProductManagement.Infrastructure.Queries;
+using ProductManagement.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace ProductManagement.Controllers
 {
@@ -21,36 +22,57 @@ namespace ProductManagement.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> Index()
         {
-            var query = new GetAllProductsQuery();
-            var result = await _mediator.Send(query);
-            return Ok(result);
+            var result = await _mediator.Send(new GetAllProductsQuery());
+            return View(result);
         }
 
-        public async Task<IActionResult> GetProduct(Guid id)
-        {
-            var query = new GetProductByIdQuery(id);
-            var result = await _mediator.Send(query);
-            return result == null ? (IActionResult)NotFound() : Ok(result);
-        }
+        public IActionResult Create() => View(new CreateProductCommand());
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(CreateProductCommand command)
         {
             var result = await _mediator.Send(command);
-            return result == null ? (IActionResult)NotFound() : Ok(result);
+            return result == null ? RedirectToAction("Error", new Error(Operation.Name.Add)) : RedirectToAction("Index");
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var query = new GetProductByIdQuery(id);
+            var result = await _mediator.Send(query);
+            return View(new UpdateProductCommand(result));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProduct(UpdateProductCommand command)
         {
             var result = await _mediator.Send(command);
-            return result == null ? (IActionResult)NotFound() : Ok(result);
+            return result == null ? RedirectToAction("Error", new Error(Operation.Name.Edit)) : RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> DeleteProduct(DeleteProductCommand command)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var result = await _mediator.Send(command);
-            return result == 0 ? (IActionResult)NotFound() : Ok(result);
+            var query = new GetProductByIdQuery(id);
+            var result = await _mediator.Send(query);
+            return View(new UpdateProductCommand(result));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteProduct(UpdateProductCommand command)
+        {
+            var deleteCommand = new DeleteProductCommand(command);
+            var result = await _mediator.Send(deleteCommand);
+            return result == 0 ? RedirectToAction("Error", new Error(Operation.Name.Delete)) : RedirectToAction("Index");
+        }
+
+        public IActionResult Error(Error error)
+        {
+            return View(error);
         }
     }
 }

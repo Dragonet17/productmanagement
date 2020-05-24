@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using ProductManagement.Infrastructure.Handlers;
-using ProductManagement.Infrastructure.Handlers.Product.Queries;
+﻿using ProductManagement.Infrastructure.Handlers.Product;
 using ProductManagement.Infrastructure.Mappers;
 using ProductManagement.Infrastructure.Queries;
 using ProductManagement.UnitTests.DbContext;
 using Shouldly;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace ProductManagement.UnitTests.Handlers.Product
