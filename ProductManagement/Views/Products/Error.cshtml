@@ -1,0 +1,13 @@
+﻿@model Error
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error occured</h1>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <p>
+        <strong>@Model.ErrorMessage</strong> 
+    </p>
+}

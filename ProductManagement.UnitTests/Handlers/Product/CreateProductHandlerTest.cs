@@ -32,6 +32,7 @@ namespace ProductManagement.UnitTests.Handlers.Product
             result.Number.ShouldBe("Number");
             result.Name.ShouldBe("Name");
             result.Quantity.ShouldBe(17);
+            result.Id.ShouldNotBeNull();
             productCount.ShouldBe(0);
             productCountAfterOperation.ShouldBe(1);
         }

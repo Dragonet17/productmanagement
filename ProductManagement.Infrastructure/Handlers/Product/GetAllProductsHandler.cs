@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Database.Database;
-using ProductManagement.Database.Entities;
+using ProductManagement.Infrastructure.Dtos;
+using ProductManagement.Infrastructure.Mappers;
 using ProductManagement.Infrastructure.Queries;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using ProductManagement.Infrastructure.Dtos;
-using ProductManagement.Infrastructure.Mappers;
 
 namespace ProductManagement.Infrastructure.Handlers
 {
