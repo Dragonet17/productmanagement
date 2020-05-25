@@ -12,12 +12,13 @@ namespace ProductManagement.Database.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Number = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Number = table.Column<string>(maxLength: 50, nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

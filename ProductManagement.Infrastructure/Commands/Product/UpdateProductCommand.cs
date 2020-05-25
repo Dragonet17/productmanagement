@@ -11,7 +11,7 @@ namespace ProductManagement.Infrastructure.Commands
         public Guid Id { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(3)]
         [MaxLength(50)]
         public string Number { get; set; }
 

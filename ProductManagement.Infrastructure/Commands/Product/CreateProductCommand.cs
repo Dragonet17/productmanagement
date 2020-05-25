@@ -7,7 +7,7 @@ namespace ProductManagement.Infrastructure.Commands
     public class CreateProductCommand : IRequest<ProductDto>
     {
         [Required]
-        [MinLength(5)]
+        [MinLength(3)]
         [MaxLength(50)]
         public string Number { get; set; }
 
