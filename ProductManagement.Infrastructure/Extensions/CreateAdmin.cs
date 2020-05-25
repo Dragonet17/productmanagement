@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using ApplicationIdentity.Entities;
+﻿using ApplicationIdentity.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProductManagement.Database.Database;
 using ProductManagement.Infrastructure.Consts;
 using ProductManagement.Infrastructure.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Extensions
 {
@@ -38,7 +37,7 @@ namespace ProductManagement.Infrastructure.Extensions
             var newAdmin = new ApplicationUser()
             {
                 Email = admin.Email,
-                UserName = Roles.Admin
+                UserName = admin.Email
             };
 
             var result = await userManager.CreateAsync(newAdmin, admin.Password);
