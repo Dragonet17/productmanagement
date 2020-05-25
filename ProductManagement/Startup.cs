@@ -27,7 +27,14 @@ namespace ProductManagement
             services.AddApplicationIdentity<ProductManagementContext>(
                 _configuration,
                 "DefaultConnection",
-                options => options.SignIn.RequireConfirmedAccount = true);
+                options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.SignIn.RequireConfirmedPhoneNumber = false;
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.User.RequireUniqueEmail = true;
+                    options.Lockout.AllowedForNewUsers = false;
+                });
             services.RegisterServices();
             services.AddMediatR(HandlersAssemblies.GetAssemblies());
             services.AddControllersWithViews();
