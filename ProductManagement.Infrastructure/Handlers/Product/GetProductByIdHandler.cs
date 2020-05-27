@@ -1,14 +1,13 @@
-﻿using System.Linq;
-using MediatR;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ProductManagement.Database.Database;
 using ProductManagement.Infrastructure.Dtos;
 using ProductManagement.Infrastructure.Mappers;
 using ProductManagement.Infrastructure.Queries;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace ProductManagement.Infrastructure.Handlers.Product.Queries
+namespace ProductManagement.Infrastructure.Handlers.Product
 {
     public class GetProductByIdHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
     {

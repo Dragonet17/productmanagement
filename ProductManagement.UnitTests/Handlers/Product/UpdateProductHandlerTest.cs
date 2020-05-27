@@ -38,6 +38,7 @@ namespace ProductManagement.UnitTests.Handlers.Product
             result.Number.ShouldBe("Number");
             result.Name.ShouldBe("Name");
             result.Quantity.ShouldBe(17);
+            result.Id.ShouldBe(_request.Id);
         }
 
         [Fact]
@@ -76,6 +77,7 @@ namespace ProductManagement.UnitTests.Handlers.Product
             productDb.Number.ShouldBe("Number1");
             productDb.Name.ShouldBe("Name1");
             productDb.Quantity.ShouldBe(11);
+            productDb.Id.ShouldBe(id);
         }
     }
 }

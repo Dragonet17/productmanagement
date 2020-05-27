@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ProductManagement.Database.Database;
 using ProductManagement.Infrastructure.Extensions;
 using System;
+using ProductManagement.Infrastructure.Extensions.Handlers;
 
 namespace ProductManagement
 {
@@ -26,11 +27,18 @@ namespace ProductManagement
             services.AddApplicationIdentity<ProductManagementContext>(
                 _configuration,
                 "DefaultConnection",
-                options => options.SignIn.RequireConfirmedAccount = true);
+                options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.SignIn.RequireConfirmedPhoneNumber = false;
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.User.RequireUniqueEmail = true;
+                    options.Lockout.AllowedForNewUsers = false;
+                });
+            services.RegisterServices();
+            services.AddMediatR(HandlersAssemblies.GetAssemblies());
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddMediatR(typeof(Startup));
-            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +67,7 @@ namespace ProductManagement
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Products}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
             app.UpdateDatabase<ProductManagementContext>();
