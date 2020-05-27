@@ -22,6 +22,10 @@ namespace ProductManagement.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var result = await _mediator.Send(new GetAllProductsQuery());
