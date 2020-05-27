@@ -8,6 +8,8 @@ using ProductManagement.Infrastructure.Queries;
 using ProductManagement.Models;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using ProductManagement.Infrastructure.Consts;
 
 namespace ProductManagement.Controllers
 {
@@ -34,6 +36,7 @@ namespace ProductManagement.Controllers
 
         public IActionResult Create() => View(new CreateProductCommand());
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(CreateProductCommand command)
@@ -50,6 +53,7 @@ namespace ProductManagement.Controllers
             return View(new UpdateProductCommand(result));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProduct(UpdateProductCommand command)
@@ -65,6 +69,7 @@ namespace ProductManagement.Controllers
             return View(new UpdateProductCommand(result));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteProduct(UpdateProductCommand command)
